@@ -1,1 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-light: #5eead4; // not yet
+  --primary: #3f51b5;
+  --primary-dark: #0f766e; // not yet
+  --secondary-light: #bae6fd; // not yet
+  --secondary: #0ea5e9; // not yet
+  --secondary-dark: #0369a1; // not yet
+  --blue: #586770;
+  --blue-dark: #333f48;
+  --white: #ffffff;
+  --black: #000000;
+  --text-02: #525252;
+  --text-03: #a8a8a8;
+  --field-01: #f4f4f4;
+
+  --brand-active: #f67416;
+  --brand-background: #fff6eb;
+  --brand-destructive-active: #e21d48;
+  --brand-selected: #fdba72;
+  --brand-success: #66a50d;
+  --brand-destructive-hover: #f43e5c;
+
+  --mode-base-00: #fff;
+  --mode-base-50: #fcfcfc;
+  --mode-base-100: #f4f4f5;
+  --mode-base-200: #e4e4e7;
+  --mode-base-400: #a1a1aa;
+  --mode-base-600: #52525b;
+
+  --mode-alpha-100: rgba(173, 173, 173, 0.2);
+  --mode-alpha-200: rgba(50, 62, 72, 0.2);
+  --mode-alpha-600: #52525b;
+  --mode-alpha-700: #323e48b2;
+  --mode-alpha-900: #323e48;
+
+  --colors-base-00: #fff;
+  --colors-base-900: #323e48;
+
+  --colors-orange-50: #fff6eb;
+  --colors-orange-500: #f67416;
+  --colors-orange-200: #fed6a9;
+
+  --colors-gray-900: #202024;
+
+  --colors-blue-gray-200: #e1e7ef;
+  --colors-blue-gray-400: #94a3b8;
+
+  --red-400: #f87171;
+  --green-400: #4ade80;
+
+  --space-3: 4px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-7: 16px;
+  --space-8: 20px;
+  --space-9: 24px;
+  --space-11: 32px;
+  --space-13: 40px;
+  --space-15: 48px;
+  --space-16: 56px;
+  --space-17: 64px;
+  --space-18: 80px;
+  --space-24: 160px;
+
+  --radius-radi-4: 8px;
+  --radius-radi-6: 12px;
+  --radius-radi-8: 22px;
+
+  --income-border: #bedbfe;
+  --income-background-color: #f1f5f9;
+
+  --expenses-border: #e4e4e7;
+  --expenses-background-color: #f4f4f5;
+
+  --liabilities-border: #fbd0e8;
+  --liabilities-background-color: #fce8f4;
+
+  --assets-border: #d9f99f;
+  --assets-background-color: #ebfcca;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
