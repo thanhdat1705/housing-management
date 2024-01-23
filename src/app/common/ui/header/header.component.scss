@@ -1,0 +1,74 @@
+@import "mixins";
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0 24px;
+  background-color: var(--primary);
+  @include shadow(xs);
+
+  .logo {
+    height: 40px;
+    width: 40px;
+    margin-right: 6px;
+  }
+
+  ul {
+    display: inline-flex;
+    color: #ffffffb2;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: 4px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      color: rgba(255, 255, 255, 0.819);
+      font-size: 14px;
+
+      &.active {
+        background-color: rgba(0, 0, 0, 0.2);
+        font-weight: 600;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: var(--white);
+      }
+    }
+  }
+
+  .menu-button {
+    color: white;
+  }
+}
+
+.menu-panel-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-11);
+  height: 100%;
+
+  button[mat-menu-item] {
+    --mat-menu-item-label-text-size: 22px;
+
+    min-height: 38px;
+  }
+
+  .button-content-wrapper {
+    justify-content: center;
+
+    img {
+      width: 32px;
+    }
+
+    > span {
+      font-size: 22px;
+      font-weight: normal;
+    }
+  }
+}
