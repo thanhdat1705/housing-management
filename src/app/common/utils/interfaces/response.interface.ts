@@ -5,19 +5,15 @@ export interface CommonResponse<T> {
   data: T;
 }
 
-export interface PaginationResponse<T> {
-  pageIndex: number;
-  pageSize: number;
-  count: number;
-  data: T;
-}
+// export interface PaginationResponse<T> {
+//   pageIndex: number;
+//   pageSize: number;
+//   count: number;
+//   data: T;
+// }
 
-export interface QueryListResponse<T>
-  extends CommonResponse<PaginationResponse<T>> {
-  data: {
-    pageIndex: number;
-    pageSize: number;
-    count: number;
-    data: T;
+export interface QueryListResponse<T> extends CommonResponse<T> {
+  meta: {
+    record_count: 36;
   };
 }

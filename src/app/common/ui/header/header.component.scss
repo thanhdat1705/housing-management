@@ -23,21 +23,21 @@
     padding: 0;
 
     li {
-      padding: 4px 12px;
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
       position: relative;
-      color: rgba(255, 255, 255, 0.819);
-      font-size: 14px;
+      color: var(--white);
+      font-weight: 600;
 
       &.active {
         background-color: rgba(0, 0, 0, 0.2);
-        font-weight: 600;
       }
 
       &:hover {
         background-color: rgba(0, 0, 0, 0.4);
-        color: var(--white);
       }
     }
   }
