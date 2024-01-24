@@ -1,0 +1,16 @@
+@import "mixins";
+
+:host {
+  color: var(--mode-alpha-900);
+  padding: var(--space-17);
+
+  label {
+    color: var(--mode-alpha-600);
+    font-weight: 600;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+  }
+}

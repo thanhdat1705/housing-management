@@ -17,4 +17,11 @@
     flex: 1;
     overflow: auto;
   }
+
+  ngb-toast {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+  }
 }

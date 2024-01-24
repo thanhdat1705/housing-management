@@ -45,30 +45,9 @@
   .menu-button {
     color: white;
   }
-}
 
-.menu-panel-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-11);
-  height: 100%;
-
-  button[mat-menu-item] {
-    --mat-menu-item-label-text-size: 22px;
-
-    min-height: 38px;
-  }
-
-  .button-content-wrapper {
-    justify-content: center;
-
-    img {
-      width: 32px;
-    }
-
-    > span {
-      font-size: 22px;
-      font-weight: normal;
-    }
+  .login-button {
+    font-weight: 600;
+    padding-inline: 12px;
   }
 }

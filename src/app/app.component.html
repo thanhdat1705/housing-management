@@ -1,4 +1,4 @@
-<sc-header></sc-header>
+<!-- <sc-header></sc-header>
 
 <div class="main-content">
   <router-outlet></router-outlet>
@@ -6,4 +6,19 @@
 
 <button type="button" class="btn-close" aria-label="Close"></button>
 <button type="button" class="btn">Base class</button>
+<ngx-ui-loader></ngx-ui-loader> -->
+
+<router-outlet></router-outlet>
+
 <ngx-ui-loader></ngx-ui-loader>
+
+@for (toast of toastService.toasts; track toast) {
+<ngb-toast
+  [class]="toast.classname"
+  [autohide]="true"
+  [delay]="toast.delay || 5000"
+  (hidden)="toastService.remove(toast)"
+>
+  <span>{{ toast.message }}</span>
+</ngb-toast>
+}

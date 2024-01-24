@@ -1,7 +1,5 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
 import { provideEnvironmentNgxMask } from 'ngx-mask';
@@ -14,9 +12,7 @@ import { getAppConfigProvider } from './common/app-config/app-config.token';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideClientHydration(),
-    provideAnimations(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(),
     getAppConfigProvider(environment),
     provideEnvironmentNgxMask(),
     importProvidersFrom(

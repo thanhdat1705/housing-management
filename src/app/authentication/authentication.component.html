@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 p-4">
+      <h1 class="mb-3">Login</h1>
+
+      <form [formGroup]="form" (ngSubmit)="signIn()">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="
+              form.controls.username.invalid && form.controls.username.dirty
+            "
+            formControlName="username"
+            placeholder="Enter your username"
+            required
+          />
+
+          @if (form.controls.username.invalid && form.controls.username.dirty) {
+          <div class="invalid-feedback">This field is required.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+
+          <input
+            type="password"
+            class="form-control"
+            [class.is-invalid]="form.controls.password.invalid && form.controls.password.dirty"
+            formControlName="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          @if (form.controls.password.invalid && form.controls.password.dirty) {
+          <div class="invalid-feedback">This field is required.</div>
+          }
+        </div>
+
+        <button class="btn btn-secondary w-100">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
