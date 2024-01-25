@@ -48,12 +48,14 @@ export class AuthenticationStore extends ComponentStore<State> {
                 classname: 'bg-success text-light',
               });
 
+              console.log({response})
+
               this.#localStorageService.saveData(
                 STORAGE_KEY.authInfo,
-                JSON.stringify(response.attributes.token)
+                JSON.stringify(response.data.attributes.token)
               );
               this.#securityService.isAuthenticated.set(true);
-              this.#router.navigate(['/']);
+              this.#router.navigate(['/house']);
               this.#ngxLoader.stop();
             },
             (error: HttpErrorResponse) => this.#errorHandler(error)
@@ -65,7 +67,7 @@ export class AuthenticationStore extends ComponentStore<State> {
 
   #errorHandler(error: HttpErrorResponse): void {
     const errors = error.error?.errors;
-    if (errors.length > 0) {
+    if (errors && errors.length > 0) {
       this.#toastService.show({
         message: errors[0].detail,
         classname: 'bg-danger text-light',

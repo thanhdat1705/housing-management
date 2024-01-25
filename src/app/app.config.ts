@@ -1,6 +1,13 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  importProvidersFrom,
+} from '@angular/core';
+import {
+  provideRouter,
+  withEnabledBlockingInitialNavigation,
+} from '@angular/router';
 
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
@@ -8,10 +15,30 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { getAppConfigProvider } from './common/app-config/app-config.token';
+import { LocalStorageService, SecurityService } from './common/data-access';
+import { STORAGE_KEY } from './common/utils';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [SecurityService, LocalStorageService],
+      useFactory:
+        (
+          securityService: SecurityService,
+          localStorageService: LocalStorageService
+        ) =>
+        () => {
+          const auth = localStorageService.getData<{
+            token: string;
+            refreshToken: string;
+          }>(STORAGE_KEY.authInfo);
+
+          securityService.isAuthenticated.set(!!auth);
+        },
+    },
+    provideRouter(routes, withEnabledBlockingInitialNavigation()),
     provideHttpClient(),
     getAppConfigProvider(environment),
     provideEnvironmentNgxMask(),

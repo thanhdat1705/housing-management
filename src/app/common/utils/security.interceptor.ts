@@ -21,7 +21,7 @@ export const securityInterceptor = (
   const authInfo = localStorageService.getData<AuthInfo>(STORAGE_KEY.authInfo);
 
   if (!authInfo) {
-    router.navigate(['/unauthorized']);
+    router.navigate(['/auth']);
 
     return throwError(null);
   }
@@ -38,7 +38,7 @@ export const securityInterceptor = (
       if (response.status === 403) {
         securityService.handleRemoveToken();
         securityService.isAuthenticated.set(false);
-        router.navigate(['/unauthorized']);
+        router.navigate(['/auth']);
       }
 
       return throwError(response);

@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  padding: 0 24px;
+  padding: 4px 24px;
   background-color: var(--primary);
   @include shadow(xs);
 
@@ -44,6 +44,12 @@
 
   .menu-button {
     color: white;
+    font-size: 30px;
+    cursor: pointer;
+
+    &::after {
+      display: none;
+    }
   }
 
   .login-button {

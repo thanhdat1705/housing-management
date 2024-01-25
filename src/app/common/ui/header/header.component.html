@@ -9,10 +9,10 @@
 
 <div class="flex-grow-1"></div>
 
-<!-- <mat-icon class="text-white" [matMenuTriggerFor]="menu">menu</mat-icon>
+<div ngbDropdown class="d-inline-block">
+  <i class="bi bi-list menu-button" ngbDropdownToggle></i>
 
-<mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/location">Locations</button>
-  <button mat-menu-item>Profile</button>
-  <button mat-menu-item>Setting</button>
-</mat-menu> -->
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button ngbDropdownItem (click)="signOut()">Logout</button>
+  </div>
+</div>
