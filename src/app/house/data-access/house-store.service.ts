@@ -6,13 +6,21 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { forkJoin, switchMap, tap, withLatestFrom } from 'rxjs';
 
 import { HouseService, ToastService } from '../../common/data-access';
-import { House } from '../../common/utils';
+import {
+  BaseHouse,
+  House,
+  HouseData,
+  HouseFilter,
+  HouseInfor,
+} from '../../common/utils';
+import { Router } from '@angular/router';
 
 interface State {
   isLoading: boolean;
   total: number;
   data: House[];
-  filter: any;
+  filter: HouseFilter;
+  detail: HouseInfor | null;
 }
 
 @Injectable()
@@ -20,19 +28,24 @@ export class HouseStore extends ComponentStore<State> {
   #ngxLoader = inject(NgxUiLoaderService);
   #toastService = inject(ToastService);
   #houseService = inject(HouseService);
+  #router = inject(Router);
 
   constructor() {
     super({
       isLoading: false,
       total: 0,
       data: [],
+      detail: null,
       filter: {
-        search: '',
+        blockNumber: '',
+        houseNumber: '',
+        landNumber: '',
       },
     });
   }
 
   readonly data$ = this.select((state) => state.data);
+  readonly detail$ = this.select((state) => state.detail);
   readonly total$ = this.select((state) => state.total);
   readonly filter$ = this.select((state) => state.filter);
 
@@ -44,7 +57,7 @@ export class HouseStore extends ComponentStore<State> {
   );
 
   getHouseList = this.effect<{
-    filter?: Partial<any>;
+    filter?: Partial<HouseFilter>;
   }>((params$) =>
     params$.pipe(
       tap(() => this.#ngxLoader.start()),
@@ -54,8 +67,6 @@ export class HouseStore extends ComponentStore<State> {
           ...vm.filter,
           ...filter,
         };
-
-        if (newFilter.state === 'None') delete newFilter.state;
 
         return forkJoin([
           this.#houseService.getHouseList(),
@@ -71,7 +82,9 @@ export class HouseStore extends ComponentStore<State> {
                   .filter(
                     (house) => house.attributes.model === model.attributes.model
                   )
-                  .map((data) => data.attributes),
+                  .map(
+                    (data) => ({ ...data.attributes, id: data.id } as HouseData)
+                  ),
               }));
 
               this.patchState({
@@ -89,40 +102,60 @@ export class HouseStore extends ComponentStore<State> {
     )
   );
 
-  // createLocation = this.effect<Location>((location$) =>
-  //   location$.pipe(
-  //     tap(() => this.#ngxLoader.start()),
-  //     switchMap((location) =>
-  //       this.#locationService.createLocation(location).pipe(
-  //         tapResponse(
-  //           (response) => {
-  //             this.#snackBar.openSnackBar('Create Successfully', 'success');
-  //             this.getListLocations({});
-  //           },
-  //           (error: HttpErrorResponse) => this.#errorHandler(error)
-  //         )
-  //       )
-  //     )
-  //   )
-  // );
+  createHouse = this.effect<HouseInfor>((house$) =>
+    house$.pipe(
+      tap(() => this.#ngxLoader.start()),
+      switchMap((house) =>
+        this.#houseService
+          .createHouse({
+            data: {
+              type: 'houses',
+              attributes: house,
+            },
+          })
+          .pipe(
+            tapResponse(
+              (response) => {
+                this.#toastService.show({
+                  message: 'Created Successfully',
+                  classname: 'bg-success text-light',
+                });
+                this.#router.navigate(['/house']);
+                this.#ngxLoader.stop();
+              },
+              (error: HttpErrorResponse) => this.#errorHandler(error)
+            )
+          )
+      )
+    )
+  );
 
-  // updateLocation = this.effect<Location>((location$) =>
-  //   location$.pipe(
-  //     tap(() => this.#ngxLoader.start()),
-  //     withLatestFrom(this.vm$),
-  //     switchMap(([location, vm]) =>
-  //       this.#locationService.updateLocation(location).pipe(
-  //         tapResponse(
-  //           (response) => {
-  //             this.#snackBar.openSnackBar('Update Successfully', 'success');
-  //             this.getListLocations({ filter: vm.filter });
-  //           },
-  //           (error: HttpErrorResponse) => this.#errorHandler(error)
-  //         )
-  //       )
-  //     )
-  //   )
-  // );
+  updateHouse = this.effect<{ id: string; house: HouseInfor }>((params$) =>
+    params$.pipe(
+      tap(() => this.#ngxLoader.start()),
+      withLatestFrom(this.vm$),
+      switchMap(([params, vm]) => {
+        const request: {
+          data: BaseHouse<HouseInfor>;
+        } = {
+          data: { id: params.id, type: 'houses', attributes: params.house },
+        };
+        return this.#houseService.updateHouse(request).pipe(
+          tapResponse(
+            (response) => {
+              this.#toastService.show({
+                message: 'Updated Successfully',
+                classname: 'bg-success text-light',
+              });
+              this.#router.navigate(['/house']);
+              this.#ngxLoader.stop();
+            },
+            (error: HttpErrorResponse) => this.#errorHandler(error)
+          )
+        );
+      })
+    )
+  );
 
   // deleteLocation = this.effect<string>((locationId$) =>
   //   locationId$.pipe(
@@ -142,27 +175,22 @@ export class HouseStore extends ComponentStore<State> {
   //   )
   // );
 
-  // getLocationDetails = this.effect<string>((locationId$) =>
-  //   locationId$.pipe(
-  //     tap(() => this.#ngxLoader.start()),
-  //     switchMap((locationId) =>
-  //       this.#locationService.getLocationById(locationId).pipe(
-  //         tapResponse(
-  //           (response) => {
-  //             this.#dialog.open(LocationFormDialogComponent, {
-  //               width: '400px',
-  //               data: response,
-  //               disableClose: true,
-  //             });
+  getHouseDetails = this.effect<string>((houseId$) =>
+    houseId$.pipe(
+      tap(() => this.#ngxLoader.start()),
+      switchMap((houseId) =>
+        this.#houseService.getHouseDetails(houseId).pipe(
+          tapResponse(
+            (response) => {
 
-  //             this.#ngxLoader.stop();
-  //           },
-  //           (error: HttpErrorResponse) => this.#errorHandler(error)
-  //         )
-  //       )
-  //     )
-  //   )
-  // );
+              this.#ngxLoader.stop();
+            },
+            (error: HttpErrorResponse) => this.#errorHandler(error)
+          )
+        )
+      )
+    )
+  );
 
   // readonly sortData = this.updater<{
   //   sortBy: string | undefined;
@@ -202,7 +230,7 @@ export class HouseStore extends ComponentStore<State> {
 
   #errorHandler(error: HttpErrorResponse): void {
     const errors = error.error?.errors;
-    if (errors && errors.length > 0) {
+    if (errors && errors?.length > 0) {
       this.#toastService.show({
         message: errors[0].detail,
         classname: 'bg-danger text-light',

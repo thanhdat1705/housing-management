@@ -1,0 +1,137 @@
+@if (houseInfor() || !houseId) {
+<div class="page-header">
+  <span>{{
+    houseInfor() ? houseInfor()?.house_number : "Create new house"
+  }}</span>
+
+  <div class="flex-grow-1"></div>
+
+  <button class="btn btn-primary" (click)="onSubmit()">
+    {{ houseInfor() ? "Update" : "Create" }} house
+  </button>
+</div>
+
+<div class="container">
+  <form [formGroup]="formGroup">
+    <div class="mb-3">
+      <label class="form-label">House number</label>
+
+      <input
+        type="text"
+        class="form-control"
+        [class.is-invalid]="isError('house_number')"
+        formControlName="house_number"
+        required
+      />
+
+      @if (isError('house_number')) {
+      <div class="invalid-feedback">This field is required.</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Block number</label>
+
+      <input
+        type="text"
+        class="form-control"
+        [class.is-invalid]="isError('block_number')"
+        formControlName="block_number"
+        required
+      />
+
+      @if (isError('block_number')) {
+      <div class="invalid-feedback">This field is required.</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Land number</label>
+
+      <input
+        type="text"
+        class="form-control"
+        [class.is-invalid]="isError('land_number')"
+        formControlName="land_number"
+        required
+      />
+
+      @if (isError('land_number')) {
+      <div class="invalid-feedback">This field is required.</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">House type</label>
+
+      <select
+        class="form-select"
+        [class.is-invalid]="isError('house_type')"
+        formControlName="house_type"
+      >
+        @for (item of HOUSE_TYPE; track $index) {
+        <option [value]="item.value">{{ item.viewValue | titlecase }}</option>
+        }
+      </select>
+
+      @if (isError('house_type')) {
+      <div class="invalid-feedback">This field is required.</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">House model</label>
+
+      <select
+        class="form-select"
+        [class.is-invalid]="isError('model')"
+        formControlName="model"
+      >
+        @for (item of HOUSE_MODEL; track $index) {
+        <option [value]="item.value">{{ item.viewValue | titlecase }}</option>
+        }
+      </select>
+
+      @if (isError('model')) {
+      <div class="invalid-feedback">This field is required.</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+
+      <input
+        type="text"
+        class="form-control"
+        mask="0*"
+        formControlName="price"
+        required
+        [validation]="false"
+        [class.is-invalid]="isError('price')"
+      />
+
+      @if (isError('price')) {
+      <div class="invalid-feedback">This field is required.</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+
+      <select
+        class="form-select"
+        [class.is-invalid]="isError('status')"
+        formControlName="status"
+      >
+        @for (item of HOUSE_STATUS; track $index) {
+        <option [value]="item.value">{{ item.viewValue | titlecase }}</option>
+        }
+      </select>
+
+      @if (isError('status')) {
+      <div class="invalid-feedback">This field is required.</div>
+      }
+    </div>
+  </form>
+</div>
+}

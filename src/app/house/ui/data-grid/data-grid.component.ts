@@ -5,9 +5,11 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { HouseStore } from '../../data-access';
 import { PricePipe } from '../../../common/utils';
+import { HouseStore } from '../../data-access';
+import { SecurityService } from '../../../common/data-access';
 
 @Component({
   selector: 'hm-data-grid',
@@ -15,10 +17,11 @@ import { PricePipe } from '../../../common/utils';
   styleUrls: ['data-grid.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgbAccordionModule, AsyncPipe, NgIf, PricePipe],
+  imports: [NgbAccordionModule, AsyncPipe, NgIf, PricePipe, RouterModule],
 })
 export class DataGridComponent implements OnInit {
   houseStore = inject(HouseStore);
+  securityService = inject(SecurityService);
 
   ngOnInit(): void {}
 

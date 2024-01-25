@@ -13,7 +13,10 @@
     }
   }
 
-  .accordion-body > tr {
-    display: none;
+  .accordion-body {
+    > tr,
+    > th {
+      display: none;
+    }
   }
 }

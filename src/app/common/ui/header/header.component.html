@@ -9,7 +9,14 @@
 
 <div class="flex-grow-1"></div>
 
-<div class="logout" (click)="signOut()">
+@if (securityService.isAuthenticated()) {
+<div class="action-button" (click)="signOut()">
   Logout
   <i class="bi bi-box-arrow-right"></i>
 </div>
+} @else {
+<div class="action-button" routerLink="/auth">
+  Login
+  <i class="bi bi-box-arrow-in-right"></i>
+</div>
+}

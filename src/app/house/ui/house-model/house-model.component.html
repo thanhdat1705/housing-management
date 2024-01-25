@@ -3,11 +3,48 @@
 
   <div class="flex-grow-1"></div>
 
-  <button class="btn btn-primary" (click)="onCreate()">
+  @if (securityService.isAuthenticated()) {
+  <button class="btn btn-primary" [routerLink]="['create']">
     Create house
   </button>
+  }
 </div>
 
 <div class="container py-5">
+  <div class="filter">
+    <div class="mb-3">
+      <label class="form-label">Block number</label>
+
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Input block number"
+        [formControl]="blockControl"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">House number</label>
+
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Input house number"
+        [formControl]="houseControl"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Land number</label>
+
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Input land number"
+        [formControl]="landControl"
+      />
+    </div>
+  </div>
+
   <hm-data-grid></hm-data-grid>
 </div>

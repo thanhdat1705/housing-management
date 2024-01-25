@@ -28,23 +28,29 @@ export class HouseService {
     );
   }
 
-  createHouse(house: BaseHouse<HouseInfor>) {
+  createHouse(house: { data: BaseHouse<HouseInfor> }) {
     return this.#httpClient.post<CommonResponse<HouseInfor>>(
       `${this.#appConfig.baseURL}/houses`,
       house
     );
   }
 
-  updateHouse(house: BaseHouse<HouseInfor>) {
-    return this.#httpClient.patch<CommonResponse<Location>>(
-      `${this.#appConfig.baseURL}/houses/${house.id}`,
+  updateHouse(house: { data: BaseHouse<HouseInfor> }) {
+    return this.#httpClient.put<CommonResponse<BaseHouse<HouseInfor>>>(
+      `${this.#appConfig.baseURL}/houses/${house.data.id}`,
       house
     );
   }
 
-  getDetailHouseModel(id: string) {
+  getHouseModelDetails(id: string) {
     return this.#httpClient.get<CommonResponse<BaseHouse<HouseModelInfor>>>(
       `${this.#appConfig.baseURL}/house_models/${id}`
+    );
+  }
+
+  getHouseDetails(id: string) {
+    return this.#httpClient.get<CommonResponse<BaseHouse<HouseInfor>>>(
+      `${this.#appConfig.baseURL}/houses/${id}`
     );
   }
 }

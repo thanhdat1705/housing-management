@@ -1,5 +1,7 @@
 export interface HouseFilter {
-  search: string;
+  blockNumber: string;
+  houseNumber: string;
+  landNumber: string;
   sortBy?: string;
   sortDirection?: string;
 }
@@ -41,5 +43,9 @@ export interface House {
   description: string;
   banner: string;
   video: string;
-  data: HouseInfor[];
+  data: HouseData[];
+}
+
+export interface HouseData extends HouseInfor {
+  id: string;
 }

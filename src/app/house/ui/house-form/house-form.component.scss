@@ -29,15 +29,15 @@
     }
   }
 
-  .filter {
+  label {
+    color: var(--mode-alpha-600);
+    font-weight: 600;
+  }
+
+  form {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 12px;
-
-    label {
-      color: var(--mode-alpha-600);
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
+    padding-block: 20px;
   }
 }

@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
-import { inject } from '@angular/core';
-import { SecurityService } from './common/data-access';
-import { authGuard, securityInterceptor, tokenGuard } from './common/utils';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NotFoundComponent } from './common/ui';
+import { tokenGuard } from './common/utils';
 
 export const routes: Routes = [
   {
@@ -13,8 +10,6 @@ export const routes: Routes = [
   },
   {
     path: 'house',
-    canActivate: [authGuard],
-    providers: [provideHttpClient(withInterceptors([securityInterceptor]))],
     loadChildren: () => import('././house/house.routes').then((r) => r.routes),
   },
   {

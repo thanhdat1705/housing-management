@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
@@ -16,7 +16,7 @@ import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { getAppConfigProvider } from './common/app-config/app-config.token';
 import { LocalStorageService, SecurityService } from './common/data-access';
-import { STORAGE_KEY } from './common/utils';
+import { STORAGE_KEY, securityInterceptor } from './common/utils';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,7 +39,7 @@ export const appConfig: ApplicationConfig = {
         },
     },
     provideRouter(routes, withEnabledBlockingInitialNavigation()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([securityInterceptor])),
     getAppConfigProvider(environment),
     provideEnvironmentNgxMask(),
     importProvidersFrom(

@@ -7,7 +7,7 @@ import { STORAGE_KEY } from './constants';
 export const authGuard: CanActivateFn = () => {
   if (!inject(SecurityService).isAuthenticated()) {
     inject(LocalStorageService).removeData(STORAGE_KEY.authInfo);
-    inject(Router).navigate(['/auth']);
+    inject(Router).navigate(['/']);
 
     return false;
   }

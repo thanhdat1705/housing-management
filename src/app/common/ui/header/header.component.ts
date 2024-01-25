@@ -13,14 +13,14 @@ import { AccountService, SecurityService } from '../../data-access';
 })
 export class HeaderComponent {
   #router = inject(Router);
-  #securityService = inject(SecurityService);
+  securityService = inject(SecurityService);
 
   onReload(): void {
     window.location.reload();
   }
 
   signOut() {
-    this.#securityService.handleRemoveToken();
+    this.securityService.handleRemoveToken();
     this.#router.navigate(['/auth']);
   }
 }

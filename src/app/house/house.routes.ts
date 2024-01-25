@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { HouseComponent } from './house.component';
+import { authGuard } from '../common/utils';
 
 export const routes: Route[] = [
   {
@@ -13,8 +14,15 @@ export const routes: Route[] = [
       },
       {
         path: 'detail/:id',
+        canActivate: [authGuard],
         loadComponent: () =>
-          import('./house.component').then((r) => r.HouseComponent),
+          import('./ui/house-form').then((r) => r.HouseFormComponent),
+      },
+      {
+        path: 'create',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./ui/house-form').then((r) => r.HouseFormComponent),
       },
     ],
   },

@@ -8,6 +8,7 @@ import { LocalStorageService, SecurityService } from '../data-access';
 
 import { STORAGE_KEY } from './constants';
 
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AuthInfo } from './interfaces';
 
 export const securityInterceptor = (
@@ -17,20 +18,20 @@ export const securityInterceptor = (
   const localStorageService = inject(LocalStorageService);
   const router = inject(Router);
   const securityService = inject(SecurityService);
+  const ngxLoader = inject(NgxUiLoaderService);
 
-  const authInfo = localStorageService.getData<AuthInfo>(STORAGE_KEY.authInfo);
+  const token = localStorageService.getData<AuthInfo>(STORAGE_KEY.authInfo);
 
-  if (!authInfo) {
-    router.navigate(['/auth']);
+  if (!token) {
+    // router.navigate(['/auth']);
 
-    return throwError(null);
+    // return throwError(null);
   }
 
-  const { token } = authInfo;
-
   const modifiedReq = req.clone({
-    withCredentials: true,
-    headers: req.headers.set('Authorization', `Bearer ${token}`),
+    headers: req.headers
+      .set('Content-Type', 'application/vnd.api+json')
+      .set('authentication', `${token}`),
   });
 
   return next(modifiedReq).pipe(
@@ -41,6 +42,7 @@ export const securityInterceptor = (
         router.navigate(['/auth']);
       }
 
+      ngxLoader.stop();
       return throwError(response);
     })
   );
