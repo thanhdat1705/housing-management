@@ -12,6 +12,7 @@ import {
   HouseData,
   HouseFilter,
   HouseInfor,
+  houseFilterHandler,
 } from '../../common/utils';
 import { Router } from '@angular/router';
 
@@ -37,9 +38,9 @@ export class HouseStore extends ComponentStore<State> {
       data: [],
       detail: null,
       filter: {
-        blockNumber: '',
-        houseNumber: '',
-        landNumber: '',
+        block_number: '',
+        house_number: '',
+        land_number: '',
       },
     });
   }
@@ -74,11 +75,16 @@ export class HouseStore extends ComponentStore<State> {
         ]).pipe(
           tapResponse(
             ([houseList, houseModelList]) => {
+              const houseFilterData = houseFilterHandler(
+                newFilter,
+                houseList.data
+              );
+
               const houseData: House[] = houseModelList.data.map((model) => ({
                 ...model.attributes.media,
                 id: model.id as string,
                 model: model.attributes.model,
-                data: houseList.data
+                data: houseFilterData
                   .filter(
                     (house) => house.attributes.model === model.attributes.model
                   )
@@ -157,24 +163,6 @@ export class HouseStore extends ComponentStore<State> {
     )
   );
 
-  // deleteLocation = this.effect<string>((locationId$) =>
-  //   locationId$.pipe(
-  //     tap(() => this.#ngxLoader.start()),
-  //     withLatestFrom(this.vm$),
-  //     switchMap(([locationId, vm]) =>
-  //       this.#locationService.deleteLocation(locationId).pipe(
-  //         tapResponse(
-  //           (response) => {
-  //             this.#snackBar.openSnackBar('Delete Successfully', 'success');
-  //             this.getListLocations({ filter: vm.filter });
-  //           },
-  //           (error: HttpErrorResponse) => this.#errorHandler(error)
-  //         )
-  //       )
-  //     )
-  //   )
-  // );
-
   getHouseDetails = this.effect<string>((houseId$) =>
     houseId$.pipe(
       tap(() => this.#ngxLoader.start()),
@@ -182,7 +170,6 @@ export class HouseStore extends ComponentStore<State> {
         this.#houseService.getHouseDetails(houseId).pipe(
           tapResponse(
             (response) => {
-
               this.#ngxLoader.stop();
             },
             (error: HttpErrorResponse) => this.#errorHandler(error)
@@ -191,42 +178,6 @@ export class HouseStore extends ComponentStore<State> {
       )
     )
   );
-
-  // readonly sortData = this.updater<{
-  //   sortBy: string | undefined;
-  //   sortDirection: string | undefined;
-  // }>((state, { sortBy, sortDirection }) => {
-  //   let sortedData = state.data.slice();
-  //   if (!sortBy || sortDirection === '') {
-  //     return state;
-  //   }
-
-  //   sortedData = sortedData.sort((a, b) => {
-  //     const isAsc = sortDirection === 'asc';
-  //     switch (sortBy) {
-  //       case 'name':
-  //         return compare(a.name, b.name, isAsc);
-  //       case 'city':
-  //         return compare(a.city, b.city, isAsc);
-  //       case 'state':
-  //         return compare(a.state, b.state, isAsc);
-  //       case 'availableUnits':
-  //         return compare(a.availableUnits, b.availableUnits, isAsc);
-  //       default:
-  //         return 0;
-  //     }
-  //   });
-
-  //   return {
-  //     ...state,
-  //     data: sortedData,
-  //     filter: {
-  //       ...state.filter,
-  //       sortBy,
-  //       sortDirection,
-  //     },
-  //   };
-  // });
 
   #errorHandler(error: HttpErrorResponse): void {
     const errors = error.error?.errors;

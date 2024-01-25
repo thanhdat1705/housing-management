@@ -5,12 +5,12 @@ import {
   inject,
   signal,
 } from '@angular/core';
-
-import { HouseStore } from '../../data-access';
-import { DataGridComponent } from '../data-grid';
 import { ActivatedRoute } from '@angular/router';
-import { HouseService } from '../../../common/data-access';
+
+import { NgxMaskDirective } from 'ngx-mask';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+
+import { TitleCasePipe } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -18,14 +18,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { HouseService } from '../../../common/data-access';
 import {
   HOUSE_MODEL,
   HOUSE_STATUS,
   HOUSE_TYPE,
   HouseInfor,
 } from '../../../common/utils';
-import { TitleCasePipe } from '@angular/common';
-import { NgxMaskDirective } from 'ngx-mask';
+import { HouseStore } from '../../data-access';
 
 @Component({
   selector: 'hm-house-form',

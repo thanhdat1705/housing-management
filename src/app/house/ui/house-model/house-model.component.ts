@@ -4,13 +4,14 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+
 import { SecurityService } from '../../../common/data-access';
 import { HouseStore } from '../../data-access';
 import { DataGridComponent } from '../data-grid';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'hm-house-model',
@@ -24,9 +25,9 @@ export class HouseModelComponent implements OnInit {
   houseStore = inject(HouseStore);
   securityService = inject(SecurityService);
 
-  blockControl: FormControl = new FormControl('');
-  houseControl: FormControl = new FormControl('');
-  landControl: FormControl = new FormControl('');
+  blockControl: FormControl = new FormControl(null);
+  houseControl: FormControl = new FormControl(null);
+  landControl: FormControl = new FormControl(null);
 
   ngOnInit(): void {
     this.houseStore.getHouseList({});
@@ -34,7 +35,19 @@ export class HouseModelComponent implements OnInit {
     this.blockControl.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((query: string) => {
-        this.houseStore.getHouseList({ filter: { blockNumber: query } });
+        this.houseStore.getHouseList({ filter: { block_number: query } });
+      });
+
+    this.houseControl.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((query: string) => {
+        this.houseStore.getHouseList({ filter: { house_number: query } });
+      });
+
+    this.landControl.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((query: string) => {
+        this.houseStore.getHouseList({ filter: { land_number: query } });
       });
   }
 

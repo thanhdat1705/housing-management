@@ -1,19 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { switchMap, tap } from 'rxjs';
 
-import { Router } from '@angular/router';
 import {
   AccountService,
   LocalStorageService,
   SecurityService,
   ToastService,
 } from '../../common/data-access';
-import { AccountRequest } from '../../common/utils/interfaces';
 import { STORAGE_KEY } from '../../common/utils';
+import { AccountRequest } from '../../common/utils/interfaces';
 
 interface State {
   isLoading: boolean;

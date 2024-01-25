@@ -1,7 +1,7 @@
 export interface HouseFilter {
-  blockNumber: string;
-  houseNumber: string;
-  landNumber: string;
+  block_number: string;
+  house_number: string;
+  land_number: string;
   sortBy?: string;
   sortDirection?: string;
 }

@@ -6,7 +6,9 @@ import {
   inject,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { PricePipe } from '../../../common/utils';
 import { HouseStore } from '../../data-access';
 import { SecurityService } from '../../../common/data-access';
