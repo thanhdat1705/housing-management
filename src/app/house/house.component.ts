@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 import { HeaderComponent } from '../common/ui';
+import { HouseStore } from './data-access';
 
 @Component({
   selector: 'hm-house',
@@ -8,25 +10,7 @@ import { HeaderComponent } from '../common/ui';
   styleUrls: ['house.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [HeaderComponent],
+  providers: [HouseStore],
+  imports: [RouterOutlet, HeaderComponent],
 })
-export class HouseComponent {
-  // #dialog = inject(MatDialog);
-  // #locationStore = inject(LocationsStore);
-
-  onCreate(): void {
-    // const dialogRef = this.#dialog.open(LocationFormDialogComponent, {
-    //   width: '400px',
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.#locationStore.createLocation({
-    //       ...result,
-    //       id: uuid(),
-    //       photo:
-    //         'https://angular.io/assets/images/tutorials/faa/r-architecture-GGupkreKwxA-unsplash.jpg',
-    //     });
-    //   }
-    // });
-  }
-}
+export class HouseComponent {}

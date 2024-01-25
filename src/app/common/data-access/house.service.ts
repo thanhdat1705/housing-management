@@ -6,6 +6,7 @@ import {
   BaseHouse,
   CommonResponse,
   HouseInfor,
+  HouseModel,
   HouseModelInfor,
   QueryListResponse,
 } from '../utils/interfaces';
@@ -16,13 +17,13 @@ export class HouseService {
   #appConfig = inject(APP_CONFIG);
 
   getHouseList() {
-    return this.#httpClient.get<QueryListResponse<BaseHouse<HouseInfor[]>>>(
+    return this.#httpClient.get<QueryListResponse<BaseHouse<HouseInfor>[]>>(
       `${this.#appConfig.baseURL}/houses`
     );
   }
 
-  getHouseModelList(id: string) {
-    return this.#httpClient.get<CommonResponse<Location>>(
+  getHouseModelList() {
+    return this.#httpClient.get<CommonResponse<BaseHouse<HouseModel>[]>>(
       `${this.#appConfig.baseURL}/house_models`
     );
   }

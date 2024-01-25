@@ -9,10 +9,7 @@
 
 <div class="flex-grow-1"></div>
 
-<div ngbDropdown class="d-inline-block">
-  <i class="bi bi-list menu-button" ngbDropdownToggle></i>
-
-  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-    <button ngbDropdownItem (click)="signOut()">Logout</button>
-  </div>
+<div class="logout" (click)="signOut()">
+  Logout
+  <i class="bi bi-box-arrow-right"></i>
 </div>

@@ -1,0 +1,19 @@
+:host {
+  .model-media {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    .banner {
+      img {
+        width: 100%;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .accordion-body > tr {
+    display: none;
+  }
+}

@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  height: 100vh;
+
+  .container {
+    margin: auto;
+    text-align: center;
+  }
+
+  h4 {
+    color: var(--brand-active);
+  }
+
+  h1 {
+    margin-top: 16px;
+    font-size: 48px;
+  }
+
+  .message {
+    margin-top: 24px;
+    color: rgb(75, 85, 99);
+  }
+
+  button {
+    margin-top: 40px;
+  }
+}

@@ -1,0 +1,31 @@
+:host {
+  .page-header {
+    display: flex;
+    align-items: center;
+    font-weight: 300;
+    padding-inline: 64px;
+    min-height: 80px;
+    background-color: var(--primary);
+    color: var(--white);
+
+    span {
+      font-size: 25px;
+    }
+
+    button {
+      font-weight: 500;
+      color: black;
+    }
+
+    .btn-primary {
+      --bs-btn-bg: #ffffff;
+      --bs-btn-border-color: #e2e2e2;
+      --bs-btn-hover-color: #fff;
+      --bs-btn-hover-bg: #e2e2e2;
+      --bs-btn-hover-border-color: #e2e2e2;
+      --bs-btn-active-color: #fff;
+      --bs-btn-active-bg: #c3c3c3;
+      --bs-btn-active-border-color: #c3c3c3;
+    }
+  }
+}

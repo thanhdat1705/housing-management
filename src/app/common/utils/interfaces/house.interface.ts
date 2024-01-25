@@ -4,13 +4,6 @@ export interface HouseFilter {
   sortDirection?: string;
 }
 
-export interface House {
-  id: string;
-  type: string;
-  attributes: HouseInfor;
-  // links: string;
-}
-
 export interface HouseInfor {
   house_number: string;
   price: number;
@@ -39,4 +32,14 @@ export interface HouseModelInfor {
   description: string;
   banner: string;
   video: string;
+}
+
+export interface House {
+  id: string;
+  model: string;
+  title: string;
+  description: string;
+  banner: string;
+  video: string;
+  data: HouseInfor[];
 }

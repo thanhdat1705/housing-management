@@ -48,8 +48,6 @@ export class AuthenticationStore extends ComponentStore<State> {
                 classname: 'bg-success text-light',
               });
 
-              console.log({response})
-
               this.#localStorageService.saveData(
                 STORAGE_KEY.authInfo,
                 JSON.stringify(response.data.attributes.token)

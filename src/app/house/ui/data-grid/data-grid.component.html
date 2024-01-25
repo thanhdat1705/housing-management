@@ -1,0 +1,63 @@
+<div ngbAccordion [closeOthers]="true">
+  @for (item of houseStore.data$ | async; track item.id) {
+  <div ngbAccordionItem [collapsed]="item.id !== '0'">
+    <h2 ngbAccordionHeader>
+      <button ngbAccordionButton>{{ item.model }}</button>
+    </h2>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <div class="model-media">
+          <div class="d-flex flex-column">
+            <h3 class="title">
+              {{ item.title }}
+            </h3>
+
+            <p class="description">{{ item.description }}</p>
+          </div>
+
+          <div class="banner">
+            <img
+              [src]="item.banner"
+              onerror="this.src='assets/images/bg-placeholder.jpg'"
+            />
+          </div>
+        </div>
+
+        <table class="table table-striped mt-2">
+          <thead>
+            <tr>
+              <th scope="col">House number</th>
+              <th scope="col">Block number</th>
+              <th scope="col">Land No</th>
+              <th scope="col">Price</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (house of item.data; track house) {
+            <tr>
+              <td>
+                {{ house?.house_number }}
+              </td>
+              <td>{{ house?.block_number }}</td>
+              <td>{{ house?.land_number }}</td>
+              <td>{{ house?.price | price}}</td>
+              <td>{{ house?.status }}</td>
+              <td>
+                <a
+                  class="pe-auto"
+                  style="cursor: pointer"
+                  (click)="detailHouse()"
+                  >Edit</a
+                >
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  }
+</div>
