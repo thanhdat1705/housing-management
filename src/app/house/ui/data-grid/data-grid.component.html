@@ -23,43 +23,56 @@
           </div>
         </div>
 
-        <table class="table table-striped mt-2">
-          <thead>
-            <tr>
-              <th scope="col">House number</th>
-              <th scope="col">Block number</th>
-              <th scope="col">Land number</th>
-              <th scope="col">Price</th>
-              <th scope="col">Status</th>
-              @if (securityService.isAuthenticated()) {
-              <th scope="col">Action</th>
+        <div class="table-scroll">
+          <table class="table table-striped mt-2">
+            <thead>
+              <tr>
+                <th scope="col">House number</th>
+
+                <th scope="col">Block number</th>
+
+                <th scope="col">Land number</th>
+
+                <th scope="col">Price</th>
+
+                <th scope="col">Status</th>
+
+                @if (securityService.isAuthenticated()) {
+                <th scope="col">Action</th>
+                }
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (house of item.data; track house) {
+              <tr>
+                <td>
+                  {{ house?.house_number }}
+                </td>
+
+                <td>{{ house?.block_number }}</td>
+
+                <td>{{ house?.land_number }}</td>
+
+                <td>{{ house?.price | price }}</td>
+
+                <td>{{ house?.status }}</td>
+
+                @if (securityService.isAuthenticated()) {
+                <td>
+                  <a
+                    class="pe-auto"
+                    style="cursor: pointer"
+                    [routerLink]="['detail', house?.id]"
+                    >Edit</a
+                  >
+                </td>
+                }
+              </tr>
               }
-            </tr>
-          </thead>
-          <tbody>
-            @for (house of item.data; track house) {
-            <tr>
-              <td>
-                {{ house?.house_number }}
-              </td>
-              <td>{{ house?.block_number }}</td>
-              <td>{{ house?.land_number }}</td>
-              <td>{{ house?.price | price }}</td>
-              <td>{{ house?.status }}</td>
-              @if (securityService.isAuthenticated()) {
-              <td>
-                <a
-                  class="pe-auto"
-                  style="cursor: pointer"
-                  [routerLink]="['detail', house?.id]"
-                  >Edit</a
-                >
-              </td>
-              }
-            </tr>
-            }
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
