@@ -2,8 +2,8 @@ export interface HouseFilter {
   block_number: string;
   house_number: string;
   land_number: string;
-  sortBy?: string;
-  sortDirection?: string;
+  min_price: number;
+  max_price: number;
 }
 
 export interface HouseInfor {

@@ -41,6 +41,8 @@ export class HouseStore extends ComponentStore<State> {
         block_number: '',
         house_number: '',
         land_number: '',
+        min_price: 0,
+        max_price: 0
       },
     });
   }

@@ -13,17 +13,6 @@
 <div class="container py-5">
   <div class="filter">
     <div class="mb-3">
-      <label class="form-label">Block number</label>
-
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Input block number"
-        [formControl]="blockControl"
-      />
-    </div>
-
-    <div class="mb-3">
       <label class="form-label">House number</label>
 
       <input
@@ -35,6 +24,17 @@
     </div>
 
     <div class="mb-3">
+      <label class="form-label">Block number</label>
+
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Input block number"
+        [formControl]="blockControl"
+      />
+    </div>
+
+    <div class="mb-3">
       <label class="form-label">Land number</label>
 
       <input
@@ -42,6 +42,30 @@
         class="form-control"
         placeholder="Input land number"
         [formControl]="landControl"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Min price</label>
+
+      <input
+        type="text"
+        class="form-control"
+        mask="separator"
+        [leadZero]="true"
+        [formControl]="minControl"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Max price</label>
+
+      <input
+        type="text"
+        class="form-control"
+        mask="separator"
+        [leadZero]="true"
+        [formControl]="maxControl"
       />
     </div>
   </div>
